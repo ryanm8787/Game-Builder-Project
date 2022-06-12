@@ -14,15 +14,20 @@ namespace environment
 
         private float m_alpha = 1.0f;
 
+        private float m_cloud_scale =1.0f;
+
         private const string FILE_NAME_CLOUD = "Prefab/obj_simple_cloud";
         private GameObject m_cloud_obj;
-        public scr_cloud_motion(float cloud_speed, float direction, float start_x, float start_y, float alpha)
+
+        public scr_cloud_motion(float cloud_speed, float direction, float start_x, float start_y, float alpha, float scale)
         {
             m_cloud_speed = cloud_speed;
             m_direction = direction;
             m_start_x = start_x;
             m_start_y = start_y;
             m_alpha = alpha;
+            m_cloud_scale = scale;
+
             string path = Directory.GetCurrentDirectory();
 
             init_cloud();
@@ -42,10 +47,14 @@ namespace environment
 
             var tmp = m_cloud_obj.GetComponent<SpriteRenderer>();
             Color new_clr = m_cloud_obj.GetComponent<SpriteRenderer>().color;
-            new_clr.a = m_alpha;
-            tmp.color = new_clr;
-        }
 
+            new_clr.a = m_alpha; 
+            tmp.color = new_clr;
+            tmp.drawMode = SpriteDrawMode.Sliced;
+            tmp.size += new Vector2(Mathf.Abs(1 - m_cloud_scale), Mathf.Abs(1 - m_cloud_scale) * 0.5f);
+            var e = m_cloud_obj.GetComponent<SpriteRenderer>().size;
+            Debug.Log(e);
+        }
         void Update()
         {
             move_cloud();

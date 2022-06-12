@@ -63,9 +63,15 @@ namespace environment
         }
         
         // TODO implement
-        private int generate_img_scale()
+        private float generate_img_scale()
         {
-            return 1;
+            // TODO single instance please x
+            System.Random cloud_interval_generation = new System.Random();
+            int scale_upper = 800;
+            int scale_lower = 100;            
+
+            float scale = cloud_interval_generation.Next(scale_lower, scale_upper) / scale_lower; 
+            return scale;
         }
         
         private float generate_cloud_speed()
@@ -96,13 +102,12 @@ namespace environment
             int cloud_dir_raw = cloud_dir_generator.Next(0, PROB_MAX);
 
             int cloud_dir = determine_direction(cloud_dir_raw);
-            Debug.Log(cloud_dir);
             float start_y = generate_position_y();
 
             m_x_start = X_CONST * cloud_dir * -1;
 
             // TODO: update co-ordinates.
-            scr_cloud_motion new_cloud = new scr_cloud_motion(generate_cloud_speed(), cloud_dir, m_x_start, start_y, generate_cloud_alpha());
+            scr_cloud_motion new_cloud = new scr_cloud_motion(generate_cloud_speed(), cloud_dir, m_x_start, start_y, generate_cloud_alpha(), generate_img_scale());
             m_clouds.Add(new_cloud);
         }
 

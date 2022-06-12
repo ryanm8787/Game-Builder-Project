@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloud_speed: 0.001
-  min_frame_interval: 90
-  max_frame_interval: 300
+  min_frame_interval: 180
+  max_frame_interval: 1200
   min_y_start: 0
   max_y_start: 3
